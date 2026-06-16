@@ -58,7 +58,9 @@ pg_isready
 
 > **Screenshot 1:** Take a screenshot showing all three version/status checks.
 >
-> `[insert screenshot]`
+><img width="672" height="201" alt="image" src="https://github.com/user-attachments/assets/1ff63a92-6abe-44ac-bb90-4e200afb3ae7" />
+
+
 
 ---
 
@@ -111,19 +113,22 @@ Exit the REPL:
 > **Screenshot 2:** Take a screenshot showing all REPL interactions above,
 > including the f-string output.
 >
-> `[insert screenshot]`
+> <img width="850" height="486" alt="image" src="https://github.com/user-attachments/assets/093d6dbc-6941-415d-a5b6-47c5651fa0b8" />
+
 
 ### Questions for Section 1
 
 **Question 1.1:** In the REPL, typing `2 ** 10` without `print` still shows
 `1024`. Why does this work in the REPL but *not* in a script file?
 
-> *Your answer:*
+> The REPL automatically prints the result of whatever you type.
+> A script runs silently in the background unless you specifically use the print() command.
 
 **Question 1.2:** The f-string format specifier `:.2f` controls how `price`
 is displayed. What does it mean, and what would `:.4f` produce for `18.9`?
 
-> *Your answer:*
+> It forces the number to display with exactly 2 decimal places.
+> Using :.4f would add two more zeroes and produce 18.9000
 
 ---
 
@@ -167,13 +172,14 @@ Exit the REPL:
 can write `sqrt(144)` without the `math.` prefix. What is the drawback of
 this style compared to `import math`?
 
-> *Your answer:*
+> It increases the risk of name collisions and makes it harder to read the code since you don't instantly know which module the function came from.
 
 **Question 2.2:** The standard library is always available — it requires no
 installation. Name two other standard library modules (not `math`) and
 describe in one sentence what each one is used for.
 
-> *Your answer:*
+> os: Used to interact with the operating system, like reading or navigating file directories.
+> random: Used to generate pseudo-random numbers or pick random items from a list.
 
 ---
 
