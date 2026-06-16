@@ -240,7 +240,8 @@ python3 berechnung.py
 > **Screenshot 3:** Take a screenshot showing the terminal output of
 > `python3 berechnung.py`.
 >
-> `[insert screenshot]`
+> <img width="664" height="132" alt="image" src="https://github.com/user-attachments/assets/f398aea1-d238-49b2-af6f-29883ed6a94d" />
+
 
 ### Step 4 – Commit
 
@@ -257,13 +258,15 @@ it only under `if __name__ == "__main__"`. What is `__name__` set to when the
 file is run directly? What is it set to when the file is *imported* by another
 module — and why does this distinction matter?
 
-> *Your answer:*
+> When run directly, __name__ is set to "__main__". When imported, it is set to the module's filename (e.g., "berechnung").
+> This matters because it prevents the script from executing automatically when another file just wants to import its functions.
 
 **Question 3.2:** The `kreisflaeche` function could be defined without
 importing `math` by hard-coding `3.14159` instead of `math.pi`. Give one
 concrete reason why using `math.pi` is preferable.
 
-> *Your answer:*
+> math.pi provides much higher precision (more decimal places) than a hard-coded number like 3.14159,
+> which leads to more accurate calculations.
 
 ---
 
@@ -423,7 +426,8 @@ uv --version
 
 > **Screenshot 4:** Take a screenshot showing the `uv --version` output.
 >
-> `[insert screenshot]`
+> <img width="1207" height="466" alt="image" src="https://github.com/user-attachments/assets/80dc1e8c-29ea-4872-8cbf-08f8bd5d2bd3" />
+
 
 ---
 
