@@ -503,7 +503,9 @@ uv run python3 berechnung.py
 > **Screenshot 5:** Take a screenshot showing the colourful table output
 > from `uv run`.
 >
-> `[insert screenshot]`
+><img width="959" height="270" alt="image" src="https://github.com/user-attachments/assets/f3285955-a7cc-4f17-af3c-0419ad67e85b" />
+
+
 
 ### Step 5 – Commit
 
@@ -520,14 +522,14 @@ git push
 `uv.lock` be committed to version control while generated files like `.venv/`
 should not?
 
-> *Your answer:*
+> 4.1: pyproject.toml lists the libraries you want; uv.lock records the exact versions installed to ensure everyone’s setup is identical.
+> We commit uv.lock for consistency, but ignore .venv/ because it's a large, local installation folder that isn't needed on other machines.
 
 **Question 4.2:** `uv run python3 berechnung.py` uses the virtual
 environment's Python. What would happen if you ran `python3 berechnung.py`
 directly (without `uv run`) and `rich` is not installed system-wide?
 
-> *Your answer:*
-
+> It would crash with a ModuleNotFoundError because your system Python doesn't know about the libraries hidden inside your project's private .venv/ folder.
 ---
 
 ## 5 – Connecting to PostgreSQL from Python
