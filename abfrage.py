@@ -5,10 +5,8 @@ from rich.table import Table
 
 DB_CONFIG = {
     "dbname":   "bibliothek",
-    "user":     "<your-username>",
-    "password": "<your-password>",
-    "host":     "localhost",
-    "port":     5432,
+    "user":     "hoteit0",
+    
 }
 
 def offene_ausleihen(cursor):
