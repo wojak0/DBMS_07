@@ -957,7 +957,8 @@ Try posting the same e-mail a second time and observe the 409 error response.
 > **Screenshot 8:** Take a screenshot showing the curl output for all three
 > endpoints, including the 409 error on the duplicate POST.
 >
-> 
+> <img width="1920" height="926" alt="image" src="https://github.com/user-attachments/assets/4a10411d-1d85-4b3e-80d0-71e92debb93b" />
+
 
 ### Step 4 – Commit
 
@@ -973,23 +974,24 @@ git push
 `cursor.execute("... VALUES (%s, %s, %s, %s)", (value1, ...))`.
 What would be the security risk of building the SQL string by concatenation
 (`"VALUES ('" + mitglied.nachname + "'...)`)? Name the attack this prevents.
-
-> String concatenation allows malicious users to insert destructive database commands into their input.
-> Parameterized queries prevent SQL Injection attacks.
+> Risk : Malicious users could enter database commands instead of normal text to steal or delete data.
+> 
 
 **Question 7.2:** The `RealDictCursor` in endpoints 1 and 2 returns each row
 as a dictionary instead of a tuple. Why does this make the API response more
 useful to a client that receives the JSON output?
 
-> Dictionaries map perfectly to JSON. It gives the client clear key-value pairs (like {"nachname": "Smith"})
-> instead of a confusing list of unnamed values (like ["Smith"]), making the data instantly readable.
+>Dictionaries map perfectly to JSON objects. It gives the client clear key-value pairs (like {"titel": "Homo Faber"})
+>so they know exactly what each value represents, instead of a confusing, unnamed list (like ["Homo Faber"]).
+> 
 
 **Question 7.3:** A caller of `GET /ausleihen/offen` receives a list of open
 loans without knowing anything about the underlying table structure, join logic,
 or database credentials. Name two concrete advantages this abstraction provides
 compared to giving every caller direct database access.
 
-
+> 1. Security: Clients never see your database credentials or have the ability to run destructive queries against your tables.
+> 2. Maintainability (Decoupling): You can completely redesign your database tables behind the scenes, and as long as the API still sends the same JSON, the client's code won't break.
 
 ---
 
@@ -1001,7 +1003,8 @@ can call `/ausleihen/offen` without knowing SQL. What is the general software
 engineering principle behind this, and where else in a typical application
 stack does the same principle appear?
 
-> *Your answer:*
+> Principle: Abstraction (or Separation of Concerns).
+> Where else: It appears everywhere—for example, the Python psycopg2 library abstracts away the low-level network packets needed to talk to PostgreSQL
 
 **Question B – Stateless HTTP vs. database connections:**  
 Each of the three endpoints opens a new database connection and closes it after
@@ -1009,7 +1012,8 @@ the query. In a production system with hundreds of simultaneous requests this
 would be inefficient. What is the standard solution, and which Python library
 provides it for `psycopg2`?
 
-> *Your answer:*
+> Solution: Connection Pooling (reusing a set of open connections instead of opening/closing new ones every time).
+> Library: psycopg2.pool (or modern async alternatives like asyncpg).
 
 **Question C – Authentication:**  
 The API currently has no access control — anyone who can reach the server on
@@ -1018,7 +1022,8 @@ to a FastAPI application are **JWT tokens** (stateless, validated by the API
 itself) and **Keycloak** (external identity provider, acting as middleware).
 What is the main operational difference between the two approaches?
 
-> *Your answer:*
+> Difference: With JWT tokens, your FastAPI app has to handle the logic of verifying the token itself.
+> With Keycloak, you hand off the entire login and security process to a separate, dedicated server.
 
 **Question D – The abstraction chain:**  
 You have now built a complete chain: raw data in PostgreSQL → SQL query in
@@ -1026,7 +1031,9 @@ Python → JSON response from FastAPI → curl client. Describe in two sentences
 what each link in this chain contributes and why removing any one of them
 would make the system harder to use or maintain.
 
-> *Your answer:*
+> PostgreSQL stores the data safely, Python translates the business logic into SQL, FastAPI wraps it into a universal web format (JSON),
+> and curl allows external users to access it.
+> Removing any link breaks the chain: without Python/FastAPI, clients would need direct, dangerous database access; without PostgreSQL, you'd have no permanent data storage.
 
 ---
 
