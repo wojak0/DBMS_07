@@ -644,7 +644,8 @@ uv run python3 abfrage.py
 
 > **Screenshot 6:** Take a screenshot showing the query result table.
 >
-> `[insert screenshot]`
+> <img width="900" height="257" alt="image" src="https://github.com/user-attachments/assets/7b0f1099-3848-4504-a840-293a7186094e" />
+
 
 ### Step 4 – Commit
 
@@ -660,20 +661,22 @@ git push
 query. What is the role of a cursor in the database connection model?
 Why is one connection able to hold multiple cursors simultaneously?
 
-> *Your answer:*
+> A cursor executes queries and fetches results. One connection can run multiple cursors because the connection is just the network pipeline,
+> while each cursor manages its own separate query state over that pipeline.
 
 **Question 5.2:** The connection parameters (username, password, host) are
 written directly in the script as `DB_CONFIG`. Why is this a security problem
 in a real project? Name one common alternative for storing credentials outside
 the source code.
 
-> *Your answer:*
+> Risk: Hardcoded passwords will leak instantly if the code is pushed to GitHub. Alternative: Use Environment Variables (via a .env file).
 
 **Question 5.3:** `cursor.fetchall()` returns a list of tuples. The script
 accesses `row[0]`, `row[1]`, etc. by index. What is the risk of this approach,
 and which `psycopg2` cursor subclass would return named columns instead?
 
-> *Your answer:*
+> Risk: If the SQL query column order changes, indices like row[0] will instantly break or point to the wrong data.
+> Subclass: psycopg2.extras.DictCursor (allows using column names instead of numbers).
 
 ---
 
@@ -767,7 +770,8 @@ from your code.
 > **Screenshot 7:** Take a screenshot showing the `curl` response and the
 > uvicorn startup log in the other terminal.
 >
-> `[insert screenshot]`
+> <img width="1920" height="999" alt="image" src="https://github.com/user-attachments/assets/408b3b3c-28ef-45b1-b460-235fdacdc549" />
+
 
 ### Step 4 – Commit
 
@@ -785,12 +789,15 @@ git push
 automatically. What standard does it use to describe the API, and what
 advantage does machine-readable API documentation have over a PDF?
 
-> *Your answer:*
+> Standard: OpenAPI (also known as Swagger). Advantage: Unlike a static PDF, machine-readable documentation allows you to instantly test endpoints
+> directly in the browser and can be used to automatically generate client code.
 
 **Question 6.2:** The `--reload` flag is useful during development but should
 not be used in production. Why?
 
-> *Your answer:*
+> It constantly scans your file system for changes, which wastes CPU and memory resources.
+> 
+> It also risks instantly crashing the live server if an incomplete or broken file is accidentally saved.
 
 ---
 
@@ -950,7 +957,7 @@ Try posting the same e-mail a second time and observe the 409 error response.
 > **Screenshot 8:** Take a screenshot showing the curl output for all three
 > endpoints, including the 409 error on the duplicate POST.
 >
-> `[insert screenshot]`
+> 
 
 ### Step 4 – Commit
 
@@ -967,20 +974,22 @@ git push
 What would be the security risk of building the SQL string by concatenation
 (`"VALUES ('" + mitglied.nachname + "'...)`)? Name the attack this prevents.
 
-> *Your answer:*
+> String concatenation allows malicious users to insert destructive database commands into their input.
+> Parameterized queries prevent SQL Injection attacks.
 
 **Question 7.2:** The `RealDictCursor` in endpoints 1 and 2 returns each row
 as a dictionary instead of a tuple. Why does this make the API response more
 useful to a client that receives the JSON output?
 
-> *Your answer:*
+> Dictionaries map perfectly to JSON. It gives the client clear key-value pairs (like {"nachname": "Smith"})
+> instead of a confusing list of unnamed values (like ["Smith"]), making the data instantly readable.
 
 **Question 7.3:** A caller of `GET /ausleihen/offen` receives a list of open
 loans without knowing anything about the underlying table structure, join logic,
 or database credentials. Name two concrete advantages this abstraction provides
 compared to giving every caller direct database access.
 
-> *Your answer:*
+
 
 ---
 
